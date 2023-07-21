@@ -1,18 +1,14 @@
+/** Manage input*/
 const taskDescriptionInput = document.getElementById("taskDescription");
 const plusIcon = document.getElementById("plusIcon");
 
+
+/** show add task icon only if there is some input value present in the input box*/
 taskDescriptionInput.addEventListener("input", updateIconVisibility);
 taskDescriptionInput.addEventListener("focus", updateIconVisibility);
 taskDescriptionInput.addEventListener("blur", updateIconVisibility);
 
-let currentSelectedButton = document.getElementById("all");
-
-function updateButtonStyle(button) {
-  if (currentSelectedButton) {
-    currentSelectedButton.style.fontWeight = "normal";
-  }
-  button.style.fontWeight = "bold";
-}
+/**style for add task icon*/
 function updateIconVisibility(event) {
   if (event.type === "keypress" && event.keyCode === 13) {
     event.preventDefault();
@@ -25,17 +21,32 @@ function updateIconVisibility(event) {
   }
 }
 
+/** added style for listing type button */
+
+let currentSelectedButton = document.getElementById("all");
+
+function updateButtonStyle(button) {
+  if (currentSelectedButton) {
+    currentSelectedButton.style.fontWeight = "normal";
+  }
+  button.style.fontWeight = "bold";
+}
+
+/** Default task list */
 let tasks = [
   { _id: 1, task: "Drink Coffee", status: "completed" },
-  { _id: 2, task: "Wake Up", status: "uncomplete" },
-  { _id: 3, task: "23123 Up", status: "uncomplete" },
+  { _id: 2, task: "Wake Up", status: "uncomplete" }
 ];
 
+/** show number of uncompleted tasks */
 var tasksLeft = tasks.filter((item) => item.status == "uncomplete");
 document.getElementById("tasksLeft").textContent =tasksLeft.length + " tasks left";
 
+/** container to manage list */
 const dynamicListContainer = document.getElementById("dynamic-list-container");
 const ul = document.getElementById("lists");
+
+/** function to add task to the list */
 
 function addTaskToList(i) {
   const li = document.createElement("li");
@@ -91,6 +102,7 @@ function addTaskToList(i) {
   ul.appendChild(li);
 }
 
+/** Show list */
 showList();
 
 function showList() {
@@ -159,6 +171,8 @@ function completeAllTasks() {
   updateTasksLeft();
 }
 
+/** Funtion to update checkboxes according to the completed tasks */
+
 function updateCheckboxes(list, status) {
   const taskList = document.getElementById("lists");
   const listItems = taskList.getElementsByTagName("li");
@@ -182,6 +196,9 @@ function deleteAllcompleteTasks() {
   updateTasksLeft();
 }
 
+
+// Function to show all completed task
+
 function showCompletedTasks(){
   const completeTasks = tasks.filter((task) => task.status === "completed");
   ul.innerHTML = "";
@@ -194,6 +211,8 @@ function showCompletedTasks(){
   currentSelectedButton = document.getElementById("completed");
 }
 
+
+// Function to show all uncompleted task
 
 function ShowUnCompletedTasks(){
   const uncompleteTasks = tasks.filter((task) => task.status === "uncomplete");
