@@ -124,7 +124,7 @@ function addTask() {
   document.getElementById("taskDescription").value = "";
 }
 
-// update the status of task
+// update to status the task
 function selectTasks(checkbox, taskId) {
   const taskIndex = tasks.findIndex((task) => task._id === taskId);
   if (taskIndex !== -1) {
@@ -159,7 +159,6 @@ function completeAllTasks() {
   updateTasksLeft();
 }
 
-// Function to update checkboxes completed task
 function updateCheckboxes(list, status) {
   const taskList = document.getElementById("lists");
   const listItems = taskList.getElementsByTagName("li");
@@ -183,7 +182,6 @@ function deleteAllcompleteTasks() {
   updateTasksLeft();
 }
 
-// Function to show all completed task
 function showCompletedTasks(){
   const completeTasks = tasks.filter((task) => task.status === "completed");
   ul.innerHTML = "";
@@ -197,7 +195,6 @@ function showCompletedTasks(){
 }
 
 
-// Function to shoow all uncompleted task
 function ShowUnCompletedTasks(){
   const uncompleteTasks = tasks.filter((task) => task.status === "uncomplete");
   ul.innerHTML = "";
