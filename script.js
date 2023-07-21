@@ -1,18 +1,15 @@
+/** To handel user input for task description */
 const taskDescriptionInput = document.getElementById("taskDescription");
 const plusIcon = document.getElementById("plusIcon");
 
+// Event listener for the "plusIcon" to add a task
+document.getElementById("plusIcon").addEventListener("click", addTask);
+
+/** show add icon if there is some input value is available in the input box */
 taskDescriptionInput.addEventListener("input", updateIconVisibility);
 taskDescriptionInput.addEventListener("focus", updateIconVisibility);
 taskDescriptionInput.addEventListener("blur", updateIconVisibility);
 
-let currentSelectedButton = document.getElementById("all");
-
-function updateButtonStyle(button) {
-  if (currentSelectedButton) {
-    currentSelectedButton.style.fontWeight = "normal";
-  }
-  button.style.fontWeight = "bold";
-}
 function updateIconVisibility(event) {
   if (event.type === "keypress" && event.keyCode === 13) {
     event.preventDefault();
@@ -25,15 +22,18 @@ function updateIconVisibility(event) {
   }
 }
 
+/** Default task list */
 let tasks = [
   { _id: 1, task: "Drink Coffee", status: "completed" },
   { _id: 2, task: "Wake Up", status: "uncomplete" },
-  { _id: 3, task: "23123 Up", status: "uncomplete" },
 ];
+
+/** show number of uncompleted task at the bottom */
 
 var tasksLeft = tasks.filter((item) => item.status == "uncomplete");
 document.getElementById("tasksLeft").textContent =tasksLeft.length + " tasks left";
 
+/** create container to show list */ 
 const dynamicListContainer = document.getElementById("dynamic-list-container");
 const ul = document.getElementById("lists");
 
@@ -93,6 +93,7 @@ function addTaskToList(i) {
 
 showList();
 
+/** show list and update all button style*/
 function showList() {
   ul.innerHTML = "";
   tasks.forEach((i) => {
@@ -150,6 +151,15 @@ function deleteTask(taskId) {
   updateTasksLeft();
 }
 
+let currentSelectedButton = document.getElementById("all");
+
+function updateButtonStyle(button) {
+  if (currentSelectedButton) {
+    currentSelectedButton.style.fontWeight = "normal";
+  }
+  button.style.fontWeight = "bold";
+}
+
 // Function to complete all task
 function completeAllTasks() {
   for (let i = 0; i < tasks.length; i++) {
@@ -158,6 +168,8 @@ function completeAllTasks() {
   updateCheckboxes(tasks, "completed");
   updateTasksLeft();
 }
+
+/** function to check checkboxes */
 
 function updateCheckboxes(list, status) {
   const taskList = document.getElementById("lists");
@@ -182,6 +194,7 @@ function deleteAllcompleteTasks() {
   updateTasksLeft();
 }
 
+/** function to show completed task */
 function showCompletedTasks(){
   const completeTasks = tasks.filter((task) => task.status === "completed");
   ul.innerHTML = "";
@@ -195,6 +208,7 @@ function showCompletedTasks(){
 }
 
 
+/** function to show uncompleted task */
 function ShowUnCompletedTasks(){
   const uncompleteTasks = tasks.filter((task) => task.status === "uncomplete");
   ul.innerHTML = "";
@@ -205,5 +219,3 @@ function ShowUnCompletedTasks(){
   updateButtonStyle(document.getElementById("uncomplete"));
   currentSelectedButton = document.getElementById("uncomplete");
 }
-// Event listener for the "plusIcon" to add a task
-document.getElementById("plusIcon").addEventListener("click", addTask);
